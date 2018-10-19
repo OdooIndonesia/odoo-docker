@@ -1,0 +1,22 @@
+version: '3.3'
+services:
+
+  postgres:
+    image: postgres:9.6
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=odoo
+      - POSTGRES_USER=odoo
+  odoo:
+    image: odoo:11.0
+    ports:
+      - "8020:8069"
+    volumes:
+      - /opt/odoo/odoo-docker/docker-compose-odoo-11-0/etc:/etc/odoo
+      - /opt/odoo/addons/odoo11/dev:/mnt/extra-addons
+    links:
+      - postgres:db
+
+volumes:
+    pg_data:

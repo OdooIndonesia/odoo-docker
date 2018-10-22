@@ -1,0 +1,21 @@
+version: '3.3'
+services:
+
+
+  odoo:
+    image: odoo:10.0
+    ports:
+      - "8010:8069"
+    volumes:
+      - /opt/odoo/odoo-docker/docker-compose-odoo-10-0/etc:/etc/odoo
+      - /opt/odoo/addons/odoo10/dev:/mnt/extra-addons
+    networks:
+      - default
+      - db_network
+    external_links:
+      - docker-compose-odoo-11-0_postgres_1:db
+
+networks:
+    db_network:
+        external:
+            name: docker-compose-odoo-11-0_default
